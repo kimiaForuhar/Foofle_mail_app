@@ -90,7 +90,11 @@ def add(title, body, canvas,id):
     deleteB = Button(emailTitle, text='delete', bg='#DBCEEC', command=deletemail(id))
     deleteB.place(x=722, y=0)
     status = Label(emailTitle, text=P.readmail(P.getlastlogin(), id))
-    status.place(x=700)
+    status.place(x=690)
+    status.config(width=2)
+    readB=Button(emailTitle, text='mark as read', bg='#DBCEEC', command=P.readmail(P.getlastlogin(),id))
+    readB.place(x=600)
+    emailTitle.update()
 
 
 def deletemail(id):

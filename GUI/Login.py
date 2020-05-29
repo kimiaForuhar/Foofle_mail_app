@@ -47,8 +47,8 @@ def getinput():
     un = nameEL.get()
     passw = pwordEL.get()
     if P.userscheckpass(un,passw):
-        News.callnews()
         P.AddToLoginTable(un)
+        News.callnews()
     # rootA.destroy()
 
 

@@ -20,7 +20,7 @@ def getsent(Username):
     global sent
     c.cursor.callproc('getsent', args=[Username, ])
     for result in c.cursor.stored_results():
-        sent=result.fetchall()
+        sent = result.fetchall()
     c.connection.commit()
     return sent
 
@@ -29,7 +29,7 @@ def getinbox(Username):
     global inbox
     c.cursor.callproc('getinbox', args=[Username, ])
     for result in c.cursor.stored_results():
-        inbox=result.fetchall()
+        inbox = result.fetchall()
     c.connection.commit()
     return inbox
 
@@ -69,7 +69,7 @@ def getInfo(username):
     global info
     c.cursor.callproc('getInfo', args=[username, ])
     for result in c.cursor.stored_results():
-        info=result.fetchall()
+        info = result.fetchall()
     c.connection.commit()
     return info
 
@@ -89,40 +89,24 @@ def Fetchnews(username):
     global news
     c.cursor.callproc('Fetchnews', args=[username, ])
     for result in c.cursor.stored_results():
-        news=result.fetchall()
+        news = result.fetchall()
     c.connection.commit()
     return news
+
 
 def getlastlogin():
     global un
     c.cursor.callproc('getlastlogin')
     for result in c.cursor.stored_results():
-        un=result.fetchone()
+        un = result.fetchone()
     c.connection.commit()
     return un[0]
-
 
 
 def userscheckpass(Username, passw):
     global password
     c.cursor.callproc('userscheckpass', args=(Username, passw))
     for result in c.cursor.stored_results():
-        password=result.fetchone()
+        password = result.fetchone()
     c.connection.commit()
     return password[0]
-
-# c.cursor.execute('select * from news')
-# # c.cursor.fetchall()
-# print(c.cursor.fetchall())
-# # for row in c.cursor.fetchall():
-# #     print(row)
-#
-# c.cursor.callproc("Fetchnews",['kimiya'])
-#
-# for result in c.cursor.stored_results():
-#     news=result.fetchall()
-#
-# for row in news:
-#     print( row)
-#
-# c.connection.commit()
