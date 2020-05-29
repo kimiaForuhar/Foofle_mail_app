@@ -80,7 +80,7 @@ def sentfeed():
     # add("t3", "n3", scframe.interior)
     rootA.resizable(0, 1)
     for row in P.getsent(P.getlastlogin()):
-        add(row[0],row[1],scframe.interior,row[0])
+        add(row[1],row[2],scframe.interior,row[0])
     rootA.mainloop()
 
 
@@ -105,5 +105,5 @@ def add(title, body, canvas,id):
 
 
 def deletemail(id):
-    P.deletemail(id,P.getlastlogin())
+    P.deletemail(id)
     rootA.update()

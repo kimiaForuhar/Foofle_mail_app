@@ -1,8 +1,8 @@
 from SQL import Connection as c
 
 
-def deletemail(mail_id, Username):
-    c.cursor.callproc('deletemail', args=(mail_id, Username))
+def deletemail(mail_id):
+    c.cursor.callproc('deletemail', args=[mail_id, ])
     c.connection.commit()
 
 
@@ -42,10 +42,7 @@ def addtorecivers(username):
 def addnewmail(msubject, body, username):
     global newmail
     c.cursor.callproc('addnewmail', args=(msubject, body, username))
-    for result in c.cursor.stored_results():
-        newmail=result.fetchall()
     c.connection.commit()
-    return newmail
 
 
 def addNewUser(username, passw, phone):

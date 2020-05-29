@@ -97,5 +97,6 @@ def getinput():
     subj = subjectt.get()
     body = mailt.get("1.0",END)
     P.addnewmail(subj,body,P.getlastlogin())
-    for i in range(len(to.split(','))+1):
+    to=to.split(',')
+    for i in range(len(to)):
         P.addtorecivers(to[i])

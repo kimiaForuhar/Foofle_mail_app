@@ -49,6 +49,7 @@ def getinput():
     if P.userscheckpass(un,passw):
         News.callnews()
         P.AddToLoginTable(un)
+    # rootA.destroy()
 
 
 

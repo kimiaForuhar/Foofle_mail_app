@@ -94,5 +94,5 @@ def add(title, body, canvas,id):
 
 
 def deletemail(id):
-    P.deletemail(id, P.getlastlogin())
+    P.deletemail(id)
     rootA.update()
