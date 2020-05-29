@@ -88,7 +88,7 @@ def editfeed():
     addresse.place(x=20, y=390)
     save = Button(mainfeed, text='save', width=10, command=getinput)
     save.place(x=300, y=500)
-    deletB = Button(mainfeed, text='delete account', width=10,command=deleteuder)
+    deletB = Button(mainfeed, text='delete account', width=10, command=deleteuder)
     deletB.place(x=300, y=535)
     newsB = Button(barlayout, text='news', command=mynews)
     newsB.place(x=20, y=30)
@@ -111,33 +111,42 @@ def editfeed():
     usern = Label(rootA, text=name, bg='#DBCEEC')
     usern.place(x=477, y=140)
     rootA.resizable(0, 1)
-    searchl=Label(titlelayout,text='search here',bg='#D0CAEE')
-    searchl.place(x=20,y=140)
+    searchl = Label(titlelayout, text='search here', bg='#D0CAEE')
+    searchl.place(x=20, y=140)
     searchl.config(font=myfont)
-    search=Entry(titlelayout,width=30).place(x=150,y=140)
+    search = Entry(titlelayout, width=30).place(x=150, y=140)
+
+    infos = P.getInfo(P.getlastlogin())
+
+    firste.insert(0, infos[0][5])
+    lastnamee.insert(0, infos[0][6])
+    nick.insert(0, infos[0][7])
+    phonee.insert(0, infos[0][8])
+    cphonee.insert(0, infos[0][3])
+    addresse.insert("1.0", infos[0][4])
     rootA.mainloop()
 
 
 def calledit():
     editfeed()
     # in kar dare
-    P.getInfo(P.getlastlogin())
-
 
 
 def getinput():
     fnaem = firste.get()
     lname = lastnamee.get()
     nname = nick.get()
-    id = n_ide.get()
-    passw = passe.get()
+    id = P.getlastlogin()
+    # id="msaeed"
+    # passw = passe.get()
+    passw = '123456'
     bd = birthdatee.get()
     phone = phonee.get()
     cphone = cphonee.get()
     address = addresse.get("1.0", END)
-    searchothers = search.get()
+    # searchothers = search.get()
     P.addInfo(address, fnaem, lname, nname, phone, bd, id, cphone, passw)
+
 
 def deleteuder():
     P.DeleteUser(P.getlastlogin())
-
