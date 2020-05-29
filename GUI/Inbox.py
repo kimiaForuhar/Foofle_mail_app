@@ -65,10 +65,10 @@ def inboxfeed():
     user.place(x=410, y=140)
     usern = Label(rootA, text=P.getlastlogin(), bg='#DBCEEC')
     usern.place(x=477, y=140)
-    add("tmcfkwo cvfwa vopw vopw 1", "n1", scframe.interior,1)
+    # add("tmcfkwo cvfwa vopw vopw 1", "n1", scframe.interior, 1)
     rootA.resizable(0, 1)
     for row in P.getinbox(P.getlastlogin()):
-        add(row[1], row[2], scframe.interior,row[0])
+        add(row[1], row[2], scframe.interior, row[0])
     rootA.mainloop()
 
 
@@ -76,7 +76,7 @@ def callinboxfeed():
     inboxfeed()
 
 
-def add(title, body, canvas,id):
+def add(title, body, canvas, id):
     emailPad = Canvas(canvas, bg="black", relief=FLAT)
     emailPad.pack(pady=15, side=TOP, fill="both")
     emailPad.config()
@@ -87,16 +87,16 @@ def add(title, body, canvas,id):
     emailContent.config(height=3, wrap='word')
     emailContent.insert('1.0', body)
     emailContent.config(state='disabled')
-    deleteB = Button(emailTitle, text='delete', bg='#DBCEEC', command=deletemail(id))
+    deleteB = Button(emailTitle, text='delete', bg='#DBCEEC', command=lambda: deletemail(id))
     deleteB.place(x=722, y=0)
-    status = Label(emailTitle, text=P.readmail(P.getlastlogin(), id))
+    status = Label(emailTitle, text=P.getinbox(P.getlastlogin()))
     status.place(x=690)
     status.config(width=2)
-    readB=Button(emailTitle, text='mark as read', bg='#DBCEEC', command=P.readmail(P.getlastlogin(),id))
+    readB = Button(emailTitle, text='mark as read', bg='#DBCEEC', command=P.readmail(P.getlastlogin(), id))
     readB.place(x=600)
     emailTitle.update()
 
 
 def deletemail(id):
     P.deletemail(id)
-    rootA.update()
+    rootA.after(10,inboxfeed)
