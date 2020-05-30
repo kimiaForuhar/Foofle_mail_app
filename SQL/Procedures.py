@@ -33,7 +33,6 @@ def getinbox(Username):
     c.connection.commit()
     return inbox
 
-print(getinbox('cheraaa'))
 
 def addtorecivers(username):
     c.cursor.callproc('addtorecivers', args=[username, ])
@@ -72,7 +71,6 @@ def getInfo(username):
     for result in c.cursor.stored_results():
         info = result.fetchall()
     c.connection.commit()
-    print(info)
     return info
 
 
@@ -80,7 +78,6 @@ def addInfo(address, firstname, lastname, nickname, phone, birthdate, nid, accou
     c.cursor.callproc('addInfo',
                       args=(address, firstname, lastname, nickname, phone, birthdate, nid, accountphone, passw))
     c.connection.commit()
-    print("commit shodam")
 
 
 def AddToLoginTable(username):
@@ -117,4 +114,28 @@ def userscheckpass(Username, passw):
 
 def deleteNews(id):
     c.cursor.callproc('deleteNews', args=[id, ])
+    c.connection.commit()
+
+
+def permission(username, checkuser):
+    global infos
+    c.cursor.callproc('permission', args=(username, checkuser))
+    for result in c.cursor.stored_results():
+        infos = result.fetchone()
+    c.connection.commit()
+    return infos
+
+
+def EXPback(username, blockuser):
+    c.cursor.callproc('EXPback', args=(username, blockuser))
+    c.connection.commit()
+
+
+def blockinfo(username, blockuser):
+    c.cursor.callproc('blockinfo', args=(username, blockuser))
+    c.connection.commit()
+
+
+def getpermitstatus(username, outp):
+    c.cursor.callproc('getpermitstatus', args=(username, outp))
     c.connection.commit()

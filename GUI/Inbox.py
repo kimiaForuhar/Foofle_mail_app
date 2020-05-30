@@ -68,7 +68,6 @@ def inboxfeed():
     # add("tmcfkwo cvfwa vopw vopw 1", "n1", scframe.interior, 1)
     rootA.resizable(0, 1)
     for row in P.getinbox(P.getlastlogin()):
-        print(row)
         add(row[1], row[2], scframe.interior, row[0],row[3])
     rootA.mainloop()
 
