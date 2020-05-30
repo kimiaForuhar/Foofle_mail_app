@@ -156,8 +156,6 @@ def getinput():
     lname = lastnamee.get()
     nname = nick.get()
     id = P.getlastlogin()
-    # id="msaeed"
-    # passw = passe.get()
     passw = '123456'
     bd = birthdatee.get()
     phone = phonee.get()

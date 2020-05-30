@@ -139,3 +139,7 @@ def blockinfo(username, blockuser):
 def getpermitstatus(username, outp):
     c.cursor.callproc('getpermitstatus', args=(username, outp))
     c.connection.commit()
+
+def permissionnews(username,checkuser):
+    c.cursor.callproc('permissionnews',args=(username,checkuser))
+    c.connection.commit()
