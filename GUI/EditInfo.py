@@ -1,6 +1,8 @@
 from tkinter import *
-from GUI import Inbox, Sent, NewMail, News
+from tkinter import ttk
+from GUI import Inbox, Sent, NewMail, News,OthersInfo
 from SQL import Procedures as P
+
 
 
 def myinbox():
@@ -114,9 +116,12 @@ def editfeed():
     searchl = Label(titlelayout, text='search here', bg='#D0CAEE')
     searchl.place(x=20, y=140)
     searchl.config(font=myfont)
-    search = Entry(titlelayout, width=30).place(x=150, y=140)
+    search = ttk.Entry(titlelayout, width=30)
+    search.place(x=150, y=140)
+    search.bind("<Return>",(lambda event: searchCommadn(search.get())))
 
     infos = P.getInfo(P.getlastlogin())
+    print(infos)
 
     if infos[0][5] != None:
         firste.insert(0, infos[0][5])
@@ -130,8 +135,15 @@ def editfeed():
         cphonee.insert(0, infos[0][3])
     if infos[0][4] != None:
         addresse.insert("1.0", infos[0][4])
+    if infos[0][2] != None:
+        birthdatee.insert(0,infos[0][2])
 
     rootA.mainloop()
+
+def searchCommadn(username):
+    #inja proco farakhoni kon va maghadire morede niazo bede be tabe
+    OthersInfo.editfeed(username, "kim", "foroh", "kimy", "002", "2000-0-9", "0922", "0921", "tehran")
+
 
 
 def calledit():
@@ -146,7 +158,7 @@ def getinput():
     id = P.getlastlogin()
     # id="msaeed"
     # passw = passe.get()
-    passw = ''
+    passw = '123456'
     bd = birthdatee.get()
     phone = phonee.get()
     cphone = cphonee.get()
