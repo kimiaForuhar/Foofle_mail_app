@@ -72,7 +72,7 @@ def newsfeed():
     usern.place(x=477, y=140)
     rootA.resizable(0, 1)
     for row in P.Fetchnews(name):
-        add(row[0],row[1],scframe.interior)
+        add(row[0], row[1], scframe.interior)
     rootA.mainloop()
 
 
@@ -91,3 +91,5 @@ def add(title, body, canvas):
     newsContent.config(height=3, wrap='word')
     newsContent.insert('1.0', body)
     newsContent.config(state='disabled')
+    if title == 'ask for permission':
+        exp = Button(newsPad, text='add to exceptions', command=P.blockinfo(EditInfo.getinput, P.getlastlogin()))

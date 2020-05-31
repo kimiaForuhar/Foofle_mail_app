@@ -8,7 +8,7 @@ from SQL import Procedures as P
 def Signup():
     global pwordE
     global nameE
-    global phoneE
+    global phoneE,firste,birthdatee,n_ide,lastnamee,nick,phonee,addresse
     global roots
     labelfont = ('times', 20, 'bold')
     # myfont = ('times', 15, 'bold')
@@ -76,7 +76,14 @@ def FSSignup():
     un = nameE.get()
     passw = pwordE.get()
     phone = phoneE.get()
-    P.addNewUser(un, passw, phone)
+    fn=firste.get()
+    bd=birthdatee.get()
+    nid=n_ide.get()
+    ln=lastnamee.get()
+    nn=nick.get()
+    ph2=phonee.get()
+    addrs=addresse.get("1.0", END)
+    P.addNewUser(un, passw, phone,fn,ln,nn,nid,bd,ph2,addrs)
     roots.destroy()
     # Login.calllogin()
 

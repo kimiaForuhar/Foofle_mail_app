@@ -26,7 +26,7 @@ def mynews():
 
 
 def editfeed():
-    global rootA, firste, lastnamee, nick, n_ide, passe, birthdatee, phonee, cphonee, addresse, search
+    global rootA, firste, lastnamee, nick, n_ide, passe, birthdatee, phonee, cphonee, addresse, search,privateB
     labelfont = ('elephant italic', 70, 'bold')
     rootA = Tk()
     rootA.configure(bg='#D0CAEE')
@@ -118,6 +118,8 @@ def editfeed():
     searchl.config(font=myfont)
     search = ttk.Entry(titlelayout, width=30)
     search.place(x=150, y=140)
+    privateB=Button(titlelayout,text='private your acc', bg='#D0CAEE',command=change_prv)
+    privateB.place(x=20,y=100)
     search.bind("<Return>",(lambda event: searchCommadn(search.get())))
 
     infos = P.getInfo(P.getlastlogin())
@@ -141,8 +143,7 @@ def editfeed():
     rootA.mainloop()
 
 def searchCommadn(username):
-    #inja proco farakhoni kon va maghadire morede niazo bede be tabe
-    OthersInfo.editfeed(username, "kim", "foroh", "kimy", "002", "2000-0-9", "0922", "0921", "tehran")
+    P.permission(username,P.getlastlogin())
 
 
 
@@ -161,9 +162,19 @@ def getinput():
     phone = phonee.get()
     cphone = cphonee.get()
     address = addresse.get("1.0", END)
-    # searchothers = search.get()
+    searchothers = search.get()
     P.addInfo(address, fnaem, lname, nname, phone, bd, id, cphone, passw)
+    return searchothers
 
 
 def deleteuder():
     P.DeleteUser(P.getlastlogin())
+
+def change_prv():
+    P.changepermissionstate(P.getlastlogin())
+    if privateB['text'] == "private your acc" :
+        privateB['text']='publice your acc'
+    else:
+        privateB['text'] = "private your acc"
+
+
