@@ -45,8 +45,8 @@ def addnewmail(msubject, body, username):
     c.connection.commit()
 
 
-def addNewUser(username, passw, phone):
-    c.cursor.callproc('addNewUser', args=(username, passw, phone))
+def addNewUser(username, passw, phone,fn,ln,nn,ntid,bd,ph2,addrs):
+    c.cursor.callproc('addNewUser', args=(username, passw, phone,fn,ln,nn,ntid,bd,ph2,addrs))
     c.connection.commit()
 #
 # ,in fn varchar(30),in ln varchar(30),in nn varchar(30),in ntid varchar(30),in bd DATE,in ph2 varchar(30),in addrs varchar(128)
@@ -76,9 +76,9 @@ def getInfo(username):
     return info
 
 
-def addInfo(address, firstname, lastname, nickname, phone, birthdate, nid, accountphone, passw):
+def addInfo(address, firstname, lastname, nickname, phone,nationalityID, birthdate, nid, accountphone, passw):
     c.cursor.callproc('addInfo',
-                      args=(address, firstname, lastname, nickname, phone, birthdate, nid, accountphone, passw))
+                      args=(address, firstname, lastname, nickname, phone,nationalityID, birthdate, nid, accountphone, passw))
     c.connection.commit()
 
 

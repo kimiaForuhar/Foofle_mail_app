@@ -125,20 +125,22 @@ def editfeed():
     infos = P.getInfo(P.getlastlogin())
     print(infos)
 
-    if infos[0][5] != None:
-        firste.insert(0, infos[0][5])
     if infos[0][6] != None:
-        lastnamee.insert(0, infos[0][6])
+        firste.insert(0, infos[0][6])
     if infos[0][7] != None:
-        nick.insert(0, infos[0][7])
+        lastnamee.insert(0, infos[0][7])
     if infos[0][8] != None:
-        phonee.insert(0, infos[0][8])
+        nick.insert(0, infos[0][8])
+    if infos[0][9] != None:
+        phonee.insert(0, infos[0][9])
     if infos[0][3] != None:
         cphonee.insert(0, infos[0][3])
-    if infos[0][4] != None:
-        addresse.insert("1.0", infos[0][4])
-    if infos[0][2] != None:
-        birthdatee.insert(0,infos[0][2])
+    if infos[0][5] != None:
+        addresse.insert("1.0", infos[0][5])
+    if infos[0][10] != None:
+        birthdatee.insert(0,infos[0][10])
+    if infos[0][11] != None:
+        n_ide.insert(0,infos[0][11])
 
     rootA.mainloop()
 
@@ -156,6 +158,7 @@ def getinput():
     fnaem = firste.get()
     lname = lastnamee.get()
     nname = nick.get()
+    nationalityID=n_ide.get()
     id = P.getlastlogin()
     passw = '123456'
     bd = birthdatee.get()
@@ -163,7 +166,7 @@ def getinput():
     cphone = cphonee.get()
     address = addresse.get("1.0", END)
     searchothers = search.get()
-    P.addInfo(address, fnaem, lname, nname, phone, bd, id, cphone, passw)
+    P.addInfo(address, fnaem, lname, nname, phone,nationalityID, bd, id, cphone, passw)
     return searchothers
 
 
@@ -178,3 +181,19 @@ def change_prv():
         privateB['text'] = "private your acc"
 
 
+    # if infos[0][6] != None:
+    #     firste.insert(0, infos[0][6])
+    # if infos[0][7] != None:
+    #     lastnamee.insert(0, infos[0][7])
+    # if infos[0][8] != None:
+    #     nick.insert(0, infos[0][8])
+    # if infos[0][9] != None:
+    #     phonee.insert(0, infos[0][9])
+    # if infos[0][3] != None:
+    #     cphonee.insert(0, infos[0][3])
+    # if infos[0][5] != None:
+    #     addresse.insert("1.0", infos[0][5])
+    # if infos[0][10] != None:
+    #     birthdatee.insert(0,infos[0][10])
+    # if infos[0][11] != None:
+    #     n_ide.insert(0,infos[0][11])
