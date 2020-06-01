@@ -92,4 +92,5 @@ def add(title, body, canvas):
     newsContent.insert('1.0', body)
     newsContent.config(state='disabled')
     if title == 'ask for permission':
-        exp = Button(newsPad, text='add to exceptions', command=P.blockinfo(EditInfo.getinput, P.getlastlogin()))
+        exp=Button(newsPad, text='add to exceptions',background="#DBCEEC", command=lambda: P.blockinfo(EditInfo.getinput, P.getlastlogin()))
+        exp.place(x=668,y=57)

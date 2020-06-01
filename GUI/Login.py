@@ -1,6 +1,7 @@
 from tkinter import *
-from GUI import SignUp, News
+from GUI import SignUp, News,Errors
 from SQL import Procedures as P
+import mysql.connector
 
 
 def mynews():
@@ -44,14 +45,15 @@ def Login():
 
 
 def getinput():
-    un = nameEL.get()
-    passw = pwordEL.get()
-    if P.userscheckpass(un,passw):
-        P.AddToLoginTable(un)
-        News.callnews()
-    # rootA.destroy()
-
-
+    try:
+        un = nameEL.get()
+        passw = pwordEL.get()
+        if P.userscheckpass(un, passw):
+            P.AddToLoginTable(un)
+            News.callnews()
+    except mysql.connector.Error as e:
+        Errors.error(e)
+        return None
 
 
 Login()

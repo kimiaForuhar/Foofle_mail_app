@@ -42,20 +42,11 @@ def sentfeed():
     mainfeed.place(x=200, y=170)
     mainfeed.config(width=200, height=200)
     font = ('times', 40, 'bold')
-
     scframe = Scroll.VerticalScrolledFrame(mainfeed)
     scframe.grid(row=1, column=0)
-
     pagetitle = Label(mainfeed, text="Sent mails", bg='#DBCEEC', anchor='nw')
     pagetitle.grid(row=0, column=0)
-    # pagetitle.place(x=20, y=0)
     pagetitle.config(font=font)
-    # title = Label(mainfeed, text="mailsubject", bg='#DBCEEC', anchor='nw')
-    # title.place(x=20, y=80)
-    # titlefont = ('times', 15, 'bold')
-    # title.config(width=62, height=1, font=titlefont)
-    # news = Label(mainfeed, text='this is a mail from me :)', width=90, height=10, anchor='nw')
-    # news.place(x=20, y=110)
     newsB = Button(barlayout, text='news', command=mynews)
     newsB.place(x=20, y=30)
     newsB.config(width=15)
@@ -75,9 +66,6 @@ def sentfeed():
     user.place(x=410, y=140)
     usern = Label(rootA, text=P.getlastlogin(), bg='#DBCEEC')
     usern.place(x=477, y=140)
-    # add("tmcfkwo cvfwa vopw vopw 1", "n1", scframe.interior)
-    # add("t2ufcbwienfinweoin", "n2", scframe.interior)
-    # add("t3", "n3", scframe.interior)
     rootA.resizable(0, 1)
     for row in P.getsent(P.getlastlogin()):
         add(row[0], row[1], scframe.interior, row[3])
@@ -107,4 +95,4 @@ def add(title, body, canvas, id):
 def deletemail(id):
     P.deletemail(id)
     rootA.destroy()
-    rootA.after(10,sentfeed)
+    rootA.after(10, sentfeed)

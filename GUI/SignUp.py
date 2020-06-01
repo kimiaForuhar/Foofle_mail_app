@@ -1,17 +1,15 @@
 from tkinter import *
 from SQL import Procedures as P
-
-
-# from GUI import Login
+import mysql.connector
+from GUI import Errors
 
 
 def Signup():
     global pwordE
     global nameE
-    global phoneE,firste,birthdatee,n_ide,lastnamee,nick,phonee,addresse
+    global phoneE, firste, birthdatee, n_ide, lastnamee, nick, phonee, addresse
     global roots
     labelfont = ('times', 20, 'bold')
-    # myfont = ('times', 15, 'bold')
     roots = Tk()
     roots.configure(bg='#DBCEEC')
     roots.geometry("400x500")
@@ -33,37 +31,30 @@ def Signup():
     phoneE.place(x=210, y=120)
     first_name = Label(roots, text="first name:", bg='#DBCEEC')
     first_name.place(x=90, y=140)
-    # first_name.config(font=myfont)
     firste = Entry(roots)
     firste.place(x=210, y=140)
     lastname = Label(roots, text="last name:", bg='#DBCEEC')
     lastname.place(x=90, y=160)
-    # lastname.config(font=myfont)
     lastnamee = Entry(roots)
     lastnamee.place(x=210, y=160)
     nickname = Label(roots, text="nick name:", bg='#DBCEEC')
     nickname.place(x=90, y=180)
-    # nickname.config(font=myfont)
     nick = Entry(roots)
     nick.place(x=210, y=180)
     n_id = Label(roots, text="nationality id:", bg='#DBCEEC')
     n_id.place(x=90, y=200)
-    # n_id.config(font=myfont)
     n_ide = Entry(roots)
     n_ide.place(x=210, y=200)
     birthdate = Label(roots, text="birth date:", bg='#DBCEEC')
     birthdate.place(x=90, y=220)
-    # birthdate.config(font=myfont)
     birthdatee = Entry(roots)
     birthdatee.place(x=210, y=220)
     phone = Label(roots, text="phone:", bg='#DBCEEC')
     phone.place(x=90, y=240)
-    # phone.config(font=myfont)
     phonee = Entry(roots)
     phonee.place(x=210, y=240)
     address = Label(roots, text="address:", bg='#DBCEEC')
     address.place(x=90, y=260)
-    # address.config(font=myfont)
     addresse = Text(roots, width=28, height=4)
     addresse.place(x=90, y=280)
     signupButton = Button(roots, text='Sign up', bg='#ffb3fe', command=FSSignup)
@@ -76,16 +67,19 @@ def FSSignup():
     un = nameE.get()
     passw = pwordE.get()
     phone = phoneE.get()
-    fn=firste.get()
-    bd=birthdatee.get()
-    nid=n_ide.get()
-    ln=lastnamee.get()
-    nn=nick.get()
-    ph2=phonee.get()
-    addrs=addresse.get("1.0", END)
-    P.addNewUser(un, passw, phone,fn,ln,nn,nid,bd,ph2,addrs)
+    fn = firste.get()
+    bd = birthdatee.get()
+    nid = n_ide.get()
+    ln = lastnamee.get()
+    nn = nick.get()
+    ph2 = phonee.get()
+    addrs = addresse.get("1.0", END)
+    try:
+        P.addNewUser(un, passw, phone, fn, ln, nn, nid, bd, ph2, addrs)
+    except mysql.connector.Error as e:
+        Errors.error(e)
+        return None
     roots.destroy()
-    # Login.calllogin()
 
 
 def main():

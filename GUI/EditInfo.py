@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import ttk
-from GUI import Inbox, Sent, NewMail, News,OthersInfo
+from GUI import Inbox, Sent, NewMail, News, OthersInfo,Errors
 from SQL import Procedures as P
-
+import mysql.connector
 
 
 def myinbox():
@@ -26,7 +26,7 @@ def mynews():
 
 
 def editfeed():
-    global rootA, firste, lastnamee, nick, n_ide, passe, birthdatee, phonee, cphonee, addresse, search,privateB
+    global rootA, firste, lastnamee, nick, n_ide, passe, birthdatee, phonee, cphonee, addresse, search, privateB
     labelfont = ('elephant italic', 70, 'bold')
     rootA = Tk()
     rootA.configure(bg='#D0CAEE')
@@ -118,13 +118,10 @@ def editfeed():
     searchl.config(font=myfont)
     search = ttk.Entry(titlelayout, width=30)
     search.place(x=150, y=140)
-    privateB=Button(titlelayout,text='private your acc', bg='#D0CAEE',command=change_prv)
-    privateB.place(x=20,y=100)
-    search.bind("<Return>",(lambda event: searchCommadn(search.get())))
-
+    privateB = Button(titlelayout, text='private your acc', bg='#D0CAEE', command=change_prv)
+    privateB.place(x=20, y=100)
+    search.bind("<Return>", (lambda event: searchCommadn(search.get())))
     infos = P.getInfo(P.getlastlogin())
-    print(infos)
-
     if infos[0][6] != None:
         firste.insert(0, infos[0][6])
     if infos[0][7] != None:
@@ -138,62 +135,52 @@ def editfeed():
     if infos[0][5] != None:
         addresse.insert("1.0", infos[0][5])
     if infos[0][10] != None:
-        birthdatee.insert(0,infos[0][10])
+        birthdatee.insert(0, infos[0][10])
     if infos[0][11] != None:
-        n_ide.insert(0,infos[0][11])
-
+        n_ide.insert(0, infos[0][11])
     rootA.mainloop()
 
+
 def searchCommadn(username):
-    P.permission(username,P.getlastlogin())
-
-
+    try:
+        P.permissionnews(username,P.getlastlogin())
+        inf = P.permission(username, P.getlastlogin())
+        OthersInfo.editfeed(username, inf[0], inf[1], inf[2], inf[4], inf[5], inf[3], inf[6])
+    except mysql.connector.Error as e:
+        Errors.error(e)
+        return None
 
 def calledit():
     editfeed()
-    # in kar dare
 
 
 def getinput():
     fnaem = firste.get()
     lname = lastnamee.get()
     nname = nick.get()
-    nationalityID=n_ide.get()
+    nationalityID = n_ide.get()
     id = P.getlastlogin()
-    passw = '123456'
+    passw=passe.get()
     bd = birthdatee.get()
     phone = phonee.get()
     cphone = cphonee.get()
     address = addresse.get("1.0", END)
     searchothers = search.get()
-    P.addInfo(address, fnaem, lname, nname, phone,nationalityID, bd, id, cphone, passw)
+    try:
+        P.addInfo(address, fnaem, lname, nname, phone, nationalityID, bd, id, cphone, passw)
+    except mysql.connector.Error as e:
+        Errors.error(e)
+        return None
     return searchothers
 
 
 def deleteuder():
     P.DeleteUser(P.getlastlogin())
 
+
 def change_prv():
     P.changepermissionstate(P.getlastlogin())
-    if privateB['text'] == "private your acc" :
-        privateB['text']='publice your acc'
+    if privateB['text'] == "private your acc":
+        privateB['text'] = 'publice your acc'
     else:
         privateB['text'] = "private your acc"
-
-
-    # if infos[0][6] != None:
-    #     firste.insert(0, infos[0][6])
-    # if infos[0][7] != None:
-    #     lastnamee.insert(0, infos[0][7])
-    # if infos[0][8] != None:
-    #     nick.insert(0, infos[0][8])
-    # if infos[0][9] != None:
-    #     phonee.insert(0, infos[0][9])
-    # if infos[0][3] != None:
-    #     cphonee.insert(0, infos[0][3])
-    # if infos[0][5] != None:
-    #     addresse.insert("1.0", infos[0][5])
-    # if infos[0][10] != None:
-    #     birthdatee.insert(0,infos[0][10])
-    # if infos[0][11] != None:
-    #     n_ide.insert(0,infos[0][11])

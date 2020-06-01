@@ -1,6 +1,7 @@
 from tkinter import *
-from GUI import Inbox, Sent, News, EditInfo
+from GUI import Inbox, Sent, News, EditInfo,Errors
 from SQL import Procedures as P
+import mysql.connector
 
 
 def myinbox():
@@ -41,7 +42,7 @@ def newmailfeed():
     mainfeed.place(x=200, y=170)
     mainfeed.config(width=200, height=200)
     myfont = ('times', 15, 'bold')
-    froml = Label(mainfeed, text="from:\t    %s@foofle.com"%P.getlastlogin(), bg='#DBCEEC')
+    froml = Label(mainfeed, text="from:\t    %s@foofle.com" % P.getlastlogin(), bg='#DBCEEC')
     froml.place(x=20, y=20)
     froml.config(font=myfont)
     tol = Label(mainfeed, text="to:", bg='#DBCEEC')
@@ -95,9 +96,12 @@ def getinput():
     to = str(tot.get())
     cc = cct.get()
     subj = subjectt.get()
-    body = mailt.get("1.0",END)
-    P.addnewmail(subj,body,P.getlastlogin())
-    to=to.split(',')
-    for i in range(len(to)):
-        P.addtorecivers(to[i])
-
+    body = mailt.get("1.0", END)
+    try:
+        P.addnewmail(subj, body, P.getlastlogin())
+        to = to.split(',')
+        for i in range(len(to)):
+            P.addtorecivers(to[i])
+    except mysql.connector.Error as e:
+        Errors.error(e)
+        return None

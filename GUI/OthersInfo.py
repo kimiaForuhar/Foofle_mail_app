@@ -1,12 +1,8 @@
 from tkinter import *
-from tkinter import ttk
-from GUI import Inbox, Sent, NewMail, News
-from SQL import Procedures as P
 
 
-def editfeed(username, firstName, lastName, nickName, national_id, birthday, phonePersonal, PhoneSystem, addressVorodi):
-
-    global rootA, firste, lastnamee, nick, n_ide, nationalId, birthdatee, phonee, cphonee, addresse, search
+def editfeed(username, firstName, lastName, nickName, national_id, birthday, phonePersonal, addressVorodi):
+    global rootA, firste, lastnamee, nick, n_ide, nationalId, birthdatee, phonee, addresse, search
     labelfont = ('elephant italic', 50, 'bold')
 
     rootA = Tk()
@@ -75,14 +71,6 @@ def editfeed(username, firstName, lastName, nickName, national_id, birthday, pho
     phonee.place(x=180, y=260)
     phonee.insert(0, phonePersonal)
 
-    cphone = Label(mainfeed, text="connected phone:", bg='#DBCEEC')
-    cphone.place(x=20, y=220)
-    cphone.config(font=myfont)
-
-    cphonee = Entry(mainfeed, width=50)
-    cphonee.place(x=180, y=220)
-    cphonee.insert(0, PhoneSystem)
-
     address = Label(mainfeed, text="address:", bg='#DBCEEC')
     address.place(x=20, y=300)
     address.config(font=myfont)
@@ -96,11 +84,8 @@ def editfeed(username, firstName, lastName, nickName, national_id, birthday, pho
     n_ide["state"] = "readonly"
     birthdatee["state"] = "readonly"
     phonee["state"] = "readonly"
-    cphonee["state"] = "readonly"
+    # cphonee["state"] = "readonly"
     addresse["state"] = "disabled"
     addresse.config(bg="gray93")
 
     rootA.mainloop()
-
-
-

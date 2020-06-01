@@ -65,10 +65,9 @@ def inboxfeed():
     user.place(x=410, y=140)
     usern = Label(rootA, text=P.getlastlogin(), bg='#DBCEEC')
     usern.place(x=477, y=140)
-    # add("tmcfkwo cvfwa vopw vopw 1", "n1", scframe.interior, 1)
     rootA.resizable(0, 1)
     for row in P.getinbox(P.getlastlogin()):
-        add(row[1], row[2], scframe.interior, row[0],row[3])
+        add(row[1], row[2], scframe.interior, row[0], row[3])
     rootA.mainloop()
 
 
@@ -76,7 +75,7 @@ def callinboxfeed():
     inboxfeed()
 
 
-def add(title, body, canvas, id,isRead):
+def add(title, body, canvas, id, isRead):
     emailPad = Canvas(canvas, bg="black", relief=FLAT)
     emailPad.pack(pady=15, side=TOP, fill="both")
     emailPad.config()
@@ -92,14 +91,12 @@ def add(title, body, canvas, id,isRead):
     status = Label(emailTitle, text=P.getinbox(P.getlastlogin()))
     status.place(x=690)
     status.config(width=2)
-    if(isRead==1):
-        readB = Button(emailTitle, text='mark as read', bg='#DBCEEC', command=lambda :P.readmail(P.getlastlogin(), id))
+    if (isRead == 1):
+        readB = Button(emailTitle, text='mark as read', bg='#DBCEEC', command=lambda: P.readmail(P.getlastlogin(), id))
         readB.place(x=600)
     emailTitle.update()
 
 
 def deletemail(id):
-    P.deletemailforuser(P.getlastlogin(),id)
-    rootA.after(10,inboxfeed)
-
-
+    P.deletemailforuser(P.getlastlogin(), id)
+    rootA.after(10, inboxfeed)
