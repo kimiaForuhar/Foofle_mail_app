@@ -141,7 +141,17 @@ def changepermissionstate(username):
     c.cursor.callproc('changepermissionstate', args=[username, ])
     c.connection.commit()
 
-def getpermitstatus(Username,outp):
-    c.cursor.callproc('getpermitstatus', args=(Username,outp ))
+
+def getpermitstatus(Username, outp):
+    c.cursor.callproc('getpermitstatus', args=(Username, outp))
     c.connection.commit()
     return outp
+
+
+def lastnews(username):
+    global body
+    c.cursor.callproc('lastnews', args=[username, ])
+    for result in c.cursor.stored_results():
+        body = result.fetchone()
+    c.connection.commit()
+    return body[0]

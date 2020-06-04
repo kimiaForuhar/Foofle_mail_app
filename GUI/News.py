@@ -88,8 +88,6 @@ def logout():
 
 
 def add(title, body, canvas):
-    global txt
-
     newsPad = Canvas(canvas, bg="black", relief=FLAT)
     newsPad.pack(pady=15, side=TOP, fill="both")
     newsPad.config()
@@ -101,13 +99,9 @@ def add(title, body, canvas):
     newsContent.insert('1.0', body)
     newsContent.config(state='disabled')
     if title == 'ask for permission':
-        txt = body
-        print(txt.split(' ', 1)[0])
-        exp = Button(newsPad, text='add to exceptions', background="#DBCEEC", command=lambda: makeExp)
+        exp = Button(newsPad, text='add to exceptions', background="#DBCEEC", command=makeExp)
         exp.place(x=668, y=57)
 
 
 def makeExp():
-    print(txt.split(' ', 1)[0])
-    print('hiiii')
-    P.blockinfo(txt.split(' ',1)[0], P.getlastlogin())
+    P.blockinfo( P.getlastlogin(),P.lastnews(P.getlastlogin()).split(' ',1)[0])
