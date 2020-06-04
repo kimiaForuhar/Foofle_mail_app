@@ -61,6 +61,9 @@ def inboxfeed():
     new_mailB = Button(barlayout, text='new mail', command=mymail)
     new_mailB.place(x=20, y=440)
     new_mailB.config(width=15)
+    logoutB = Button(barlayout, text='log out', command=logout)
+    logoutB.place(x=20, y=520)
+    logoutB.config(width=15)
     user = Label(rootA, text="logged in as", bg='#DBCEEC')
     user.place(x=410, y=140)
     usern = Label(rootA, text=P.getlastlogin(), bg='#DBCEEC')
@@ -73,6 +76,10 @@ def inboxfeed():
 
 def callinboxfeed():
     inboxfeed()
+
+
+def logout():
+    rootA.destroy()
 
 
 def add(title, body, canvas, id, isRead):
@@ -88,15 +95,22 @@ def add(title, body, canvas, id, isRead):
     emailContent.config(state='disabled')
     deleteB = Button(emailTitle, text='delete', bg='#DBCEEC', command=lambda: deletemail(id))
     deleteB.place(x=722, y=0)
-    status = Label(emailTitle, text=P.getinbox(P.getlastlogin()))
+    status = Label(emailTitle, text=isRead)
     status.place(x=690)
     status.config(width=2)
     if (isRead == 1):
-        readB = Button(emailTitle, text='mark as read', bg='#DBCEEC', command=lambda: P.readmail(P.getlastlogin(), id))
+        readB = Button(emailTitle, text='mark as read', bg='#DBCEEC', command=lambda: readmail(id))
         readB.place(x=600)
     emailTitle.update()
 
 
 def deletemail(id):
     P.deletemailforuser(P.getlastlogin(), id)
+    rootA.destroy()
     rootA.after(10, inboxfeed)
+
+
+def readmail(id):
+    P.readmail(P.getlastlogin(), id)
+    rootA.destroy()
+    callinboxfeed()

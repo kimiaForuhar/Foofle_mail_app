@@ -62,6 +62,9 @@ def sentfeed():
     new_mailB = Button(barlayout, text='new mail', command=mymail)
     new_mailB.place(x=20, y=440)
     new_mailB.config(width=15)
+    logoutB = Button(barlayout, text='log out', command=logout)
+    logoutB.place(x=20, y=520)
+    logoutB.config(width=15)
     user = Label(rootA, text="logged in as", bg='#DBCEEC')
     user.place(x=410, y=140)
     usern = Label(rootA, text=P.getlastlogin(), bg='#DBCEEC')
@@ -75,6 +78,10 @@ def sentfeed():
 def callsentfeed():
     sentfeed()
     P.getsent(P.getlastlogin())
+
+
+def logout():
+    rootA.destroy()
 
 
 def add(title, body, canvas, id):

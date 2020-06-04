@@ -10,7 +10,7 @@ def mynews():
 
 
 def newUser():
-    rootA.destroy()
+    # rootA.destroy()
     SignUp.main()
 
 

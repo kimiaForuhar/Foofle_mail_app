@@ -140,3 +140,8 @@ def permissionnews(username, checkuser):
 def changepermissionstate(username):
     c.cursor.callproc('changepermissionstate', args=[username, ])
     c.connection.commit()
+
+def getpermitstatus(Username,outp):
+    c.cursor.callproc('getpermitstatus', args=(Username,outp ))
+    c.connection.commit()
+    return outp

@@ -1,5 +1,5 @@
 from tkinter import *
-from GUI import Inbox, Sent, News, EditInfo,Errors
+from GUI import Inbox, Sent, News, EditInfo, Errors
 from SQL import Procedures as P
 import mysql.connector
 
@@ -74,11 +74,14 @@ def newmailfeed():
     sentB.place(x=20, y=110)
     sentB.config(width=15)
     editB = Button(barlayout, text='edit info', command=myedit)
-    editB.place(x=20, y=580)
+    editB.place(x=20, y=480)
     editB.config(width=15)
     new_mailB = Button(barlayout, text='new mail')
-    new_mailB.place(x=20, y=540)
+    new_mailB.place(x=20, y=440)
     new_mailB.config(width=15)
+    logoutB = Button(barlayout, text='log out', command=logout)
+    logoutB.place(x=20, y=520)
+    logoutB.config(width=15)
     user = Label(rootA, text="logged in as", bg='#DBCEEC')
     user.place(x=410, y=140)
     name = P.getlastlogin()
@@ -92,16 +95,25 @@ def callnewmail():
     newmailfeed()
 
 
+def logout():
+    rootA.destroy()
+
+
 def getinput():
     to = str(tot.get())
     cc = cct.get()
-    subj = subjectt.get()
-    body = mailt.get("1.0", END)
-    try:
-        P.addnewmail(subj, body, P.getlastlogin())
-        to = to.split(',')
-        for i in range(len(to)):
-            P.addtorecivers(to[i])
-    except mysql.connector.Error as e:
-        Errors.error(e)
-        return None
+    if cc != to:
+        Errors.error('cc recivers list should be the same as recivers list')
+    else:
+        subj = subjectt.get()
+        body = mailt.get("1.0", END)
+        try:
+            P.addnewmail(subj, body, P.getlastlogin())
+            to = to.split(',')
+            for i in range(len(to)):
+                P.addtorecivers(to[i])
+        except mysql.connector.Error as e:
+            Errors.error(e)
+            return None
+        rootA.destroy()
+        Sent.callsentfeed()

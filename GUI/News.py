@@ -60,11 +60,14 @@ def newsfeed():
     sentB.place(x=20, y=110)
     sentB.config(width=15)
     editB = Button(barlayout, text='edit info', command=myedit)
-    editB.place(x=20, y=580)
+    editB.place(x=20, y=480)
     editB.config(width=15)
     new_mailB = Button(barlayout, text='new mail', command=mymail)
-    new_mailB.place(x=20, y=540)
+    new_mailB.place(x=20, y=440)
     new_mailB.config(width=15)
+    logoutB = Button(barlayout, text='log out', command=logout)
+    logoutB.place(x=20, y=520)
+    logoutB.config(width=15)
     user = Label(rootA, text="logged in as", bg='#DBCEEC')
     user.place(x=410, y=140)
     name = P.getlastlogin()
@@ -80,7 +83,13 @@ def callnews():
     newsfeed()
 
 
+def logout():
+    rootA.destroy()
+
+
 def add(title, body, canvas):
+    global txt
+
     newsPad = Canvas(canvas, bg="black", relief=FLAT)
     newsPad.pack(pady=15, side=TOP, fill="both")
     newsPad.config()
@@ -92,5 +101,13 @@ def add(title, body, canvas):
     newsContent.insert('1.0', body)
     newsContent.config(state='disabled')
     if title == 'ask for permission':
-        exp=Button(newsPad, text='add to exceptions',background="#DBCEEC", command=lambda: P.blockinfo(EditInfo.getinput, P.getlastlogin()))
-        exp.place(x=668,y=57)
+        txt = body
+        print(txt.split(' ', 1)[0])
+        exp = Button(newsPad, text='add to exceptions', background="#DBCEEC", command=lambda: makeExp)
+        exp.place(x=668, y=57)
+
+
+def makeExp():
+    print(txt.split(' ', 1)[0])
+    print('hiiii')
+    P.blockinfo(txt.split(' ',1)[0], P.getlastlogin())

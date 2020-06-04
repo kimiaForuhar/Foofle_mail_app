@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-from GUI import Inbox, Sent, NewMail, News, OthersInfo,Errors
+from GUI import Inbox, Sent, NewMail, News, OthersInfo, Errors
 from SQL import Procedures as P
 import mysql.connector
 
@@ -26,7 +26,7 @@ def mynews():
 
 
 def editfeed():
-    global rootA, firste, lastnamee, nick, n_ide, passe, birthdatee, phonee, cphonee, addresse, search, privateB
+    global rootA, firste, lastnamee, nick, n_ide, passe, birthdatee, phonee, cphonee, addresse, search, privateB, txt
     labelfont = ('elephant italic', 70, 'bold')
     rootA = Tk()
     rootA.configure(bg='#D0CAEE')
@@ -102,11 +102,14 @@ def editfeed():
     sentB.place(x=20, y=110)
     sentB.config(width=15)
     editB = Button(barlayout, text='edit info')
-    editB.place(x=20, y=580)
+    editB.place(x=20, y=480)
     editB.config(width=15)
     new_mailB = Button(barlayout, text='new mail', command=mymail)
-    new_mailB.place(x=20, y=540)
+    new_mailB.place(x=20, y=440)
     new_mailB.config(width=15)
+    logoutB = Button(barlayout, text='log out', command=logout)
+    logoutB.place(x=20, y=520)
+    logoutB.config(width=15)
     user = Label(rootA, text="logged in as", bg='#DBCEEC')
     user.place(x=410, y=140)
     name = P.getlastlogin()
@@ -116,12 +119,15 @@ def editfeed():
     searchl = Label(titlelayout, text='search here', bg='#D0CAEE')
     searchl.place(x=20, y=140)
     searchl.config(font=myfont)
-    search = ttk.Entry(titlelayout, width=30)
+    search = Entry(titlelayout, width=30)
     search.place(x=150, y=140)
-    privateB = Button(titlelayout, text='private your acc', bg='#D0CAEE', command=change_prv)
+    infos = P.getInfo(P.getlastlogin())
+    if infos[0][4]:
+        privateB = Button(titlelayout,text='private your acc', bg='#D0CAEE', command=change_prv)
+    else: privateB = Button(titlelayout,text='public your acc', bg='#D0CAEE', command=change_prv)
     privateB.place(x=20, y=100)
     search.bind("<Return>", (lambda event: searchCommadn(search.get())))
-    infos = P.getInfo(P.getlastlogin())
+
     if infos[0][6] != None:
         firste.insert(0, infos[0][6])
     if infos[0][7] != None:
@@ -143,15 +149,24 @@ def editfeed():
 
 def searchCommadn(username):
     try:
-        P.permissionnews(username,P.getlastlogin())
+        P.permissionnews(username, P.getlastlogin())
         inf = P.permission(username, P.getlastlogin())
         OthersInfo.editfeed(username, inf[0], inf[1], inf[2], inf[4], inf[5], inf[3], inf[6])
     except mysql.connector.Error as e:
         Errors.error(e)
         return None
 
+
+def getEXPuser():
+    return search.get()
+
+
 def calledit():
     editfeed()
+
+
+def logout():
+    rootA.destroy()
 
 
 def getinput():
@@ -160,27 +175,26 @@ def getinput():
     nname = nick.get()
     nationalityID = n_ide.get()
     id = P.getlastlogin()
-    passw=passe.get()
+    passw = passe.get()
     bd = birthdatee.get()
     phone = phonee.get()
     cphone = cphonee.get()
     address = addresse.get("1.0", END)
-    searchothers = search.get()
     try:
         P.addInfo(address, fnaem, lname, nname, phone, nationalityID, bd, id, cphone, passw)
     except mysql.connector.Error as e:
         Errors.error(e)
         return None
-    return searchothers
 
 
 def deleteuder():
     P.DeleteUser(P.getlastlogin())
+    rootA.destroy()
 
 
 def change_prv():
     P.changepermissionstate(P.getlastlogin())
     if privateB['text'] == "private your acc":
-        privateB['text'] = 'publice your acc'
+        privateB['text'] = 'public your acc'
     else:
         privateB['text'] = "private your acc"
